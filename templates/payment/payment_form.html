@@ -1,0 +1,82 @@
+{% extends "./sub_base.html" %}
+{% load static %}
+{% block title %}Make Payment{% endblock %}
+
+{% block sub_content %}
+
+<form id="payment-form">
+  <h3 class="mb-3">Alamat Pengiriman</h3>
+  <!-- Error messages in this element -->
+  <div id="card-errors" class="a" role="alert"></div>
+  <div class="row g-3">
+    <div class="col-sm-7">
+      <label for="firstName" class="form-label">Name Pelanggan</label>
+      <input type="text" class="form-control" id="custName" placeholder="" required>
+      <div class="invalid-feedback">
+        Masukan Nama Depan yang Valid
+      </div>
+    </div>
+    <div class="col-12">
+      <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+      <input type="email" class="form-control" id="email" placeholder="you@example.com">
+      <div class="invalid-feedback">
+        Masukan Email Kamu untuk alamat pengiriman!
+      </div>
+    </div>
+    <div class="col-12">
+      <label for="address" class="form-label">Alamat</label>
+      <input type="text" class="form-control" id="custAdd" placeholder="1234 Main St" required>
+      <div class="invalid-feedback">
+        Masukan alamat pengiriman.
+      </div>
+    </div>
+    <div class="col-12">
+      <label for="address2" class="form-label">Alamat 2 <span class="text-muted">(Optional)</span></label>
+      <input type="text" class="form-control" id="custAdd2" placeholder="Apartment or suite">
+    </div>
+    <div class="col-md-5">
+      <label for="country" class="form-label">Country</label>
+      <select class="form-select" id="country" required>
+        <option value="">Pilih...</option>
+        <option>Indonesia</option>
+      </select>
+      <div class="invalid-feedback">
+        Masukan alamat negara yang valid.
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label for="state" class="form-label">Provinsi</label>
+      <select class="form-select" id="state" required>
+        <option value="">Pilih...</option>
+        <option>Banda Aceh</option>
+      </select>
+      <div class="invalid-feedback">
+        Masukan provinsi yang valid.
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="Postcode" class="form-label">ZIP Code</label>
+      <input type="text" class="form-control" id="postCode" placeholder="" required>
+      <div class="invalid-feedback">
+        Masukan ZIP Code.
+      </div>
+    </div>
+  </div>
+  <hr class="my-4">
+  <h4 class="mb-3">Pembayaran</h4>
+  <label for="card-element">Kartu Kredit atau Debit</label>
+  <div id="card-element" class="form-control form-control-payment">
+    <!-- Payment elements will appear here -->
+  </div>
+  <hr class="my-4">
+  <button id="submit" class="btn btn-primary w-100 fw-bold" data-secret="{{ client_secret }}">Bayar</button>
+</form>
+
+<script>
+  var STRIPE_PUBLISHABLE_KEY = '{{STRIPE_PUBLISHABLE_KEY}}'
+  var CSRF_TOKEN = '{{ csrf_token }}';
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'payment/index.js' %}" data-rel-js></script>
+
+{% endblock %}

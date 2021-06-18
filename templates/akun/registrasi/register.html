@@ -1,0 +1,42 @@
+{% extends "../sub_base.html" %}
+{% block title %}Register Account{% endblock %}
+{% block sub_content %}
+
+<form class="account-form" action="." method="post">
+  {% csrf_token %}
+  <h3 class="mb-2">Buat Akun Kamu</h3>
+  <p class="mb-4">Semuanya Gratis!!! Daftar Sesuka Kamu.</p>
+
+  {% if form.errors %}
+  <p>Masih Salah, Perbaiki Dulu Ya!</p>
+  {% for field in form %}
+  {% if field.errors %}
+  <div class="alert alert-primary" role="alert">
+    {{ field.label }}: {{ field.errors|striptags }}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <label>{{ form.user_name.label }}<span class="text-muted small">
+      (Wajib)</span></label>
+  {{ form.user_name }}
+  <label>{{ form.email.label}}<span class="text-muted small">
+      (Wajib)</span></label>
+  {{ form.email }}
+  <label>{{ form.password.label}}<span class="text-muted mb-4">
+    </span></label>
+  <small class="form-text text-muted mb-4 small">
+    Masukan Minimal 8 Karakter dan 1 Digit 
+  </small>
+  {{ form.password }}
+  <label>{{ form.password2.label}}<span class="text-muted small">
+      (Required)</span></label>
+  {{ form.password2 }}
+  <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Daftar</button>
+  <p class="text-center">
+    <a href="{% url "akun:login" %}">Sudah Punya Akun</a>
+  </p>
+</form>
+
+{% endblock %}

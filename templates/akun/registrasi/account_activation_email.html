@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hi {{ user.user_name }},
+
+Akun Anda Berhasil dibuat. Klik link berikut untuk mengaktifkan akun Anda!
+
+http://{{ domain }}{% url 'akun:activate' uidb64=uid token=token %}
+{% endautoescape %}
